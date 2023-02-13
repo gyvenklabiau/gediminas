@@ -48,6 +48,7 @@
 
             function setW(data) {
                 w = data.val()
+                console.log(w)
                 edit(w)
             }
 
@@ -64,13 +65,13 @@
                         {
                             cl: 'tabs',
                             c: [
-                            {
-                                    a: { onclick: 'eTab(gp(this), "id")' },
-                                    t: 'ID'
+                                {
+                                    a: { onclick: '' },
+                                    t: obj.e || 'div'
                                 },
                                 {
-                                    a: { onclick: 'eTab(gp(this), "e")' },
-                                    t: 'E'
+                                    a: { onclick: 'eTab(gp(this), "id")' },
+                                    t: 'ID'
                                 },
                                 {
                                     a: { onclick: 'eTab(gp(this), "s")' },
@@ -103,20 +104,20 @@
                 switch(t) {
                     case 'id':
                         a(content, 'contenteditable', true)
-                        a(content, 'onkeydown', 'updateOE(gp(this), "id", this.innerText)')
+                        a(content, 'onkeyup', 'updateOE(gp(this), "id", this.innerText)')
                         o.id ? t(content, o.id) : ''
                         break;
+
+                    case 'e':
+
                 }
 
                 add(tab, content)
             }
 
             function updateOE(oe, atr, value) {
-                console.log(oe, atr, value)
                 var o = JSON.parse(ga(oe, 'o'))
-                console.log(value)
                 value && value !== '\n' ? o[atr] = value : delete o[atr]
-
                 a(oe, 'o', JSON.stringify(o))
             }
 
@@ -133,6 +134,7 @@
 
             * {
                 font-family: monospace;
+                box-sizing: content-box;
             }
 
             .action {
@@ -175,16 +177,17 @@
                 cursor: pointer;
             }
 
+            #head_items {
+                margin: 1em;
+            }
+
             .object_element {
-                padding: 1em; 
-                padding-top: 0; 
                 border: 2px solid #000; 
                 margin-bottom: 1em;
             }
 
             .tabs {
                 display: flex;
-                justify-content: center;
                 align-items: center;
             }
 
@@ -192,6 +195,10 @@
                 padding: 0.3em;
                 cursor: pointer;
                 border: 1px solid #222;
+            }
+
+            .tab {
+                min-height: 2em;
             }
         </style>
     </head>
@@ -219,7 +226,7 @@
                         <label>Title</label>
                         <div name="title" contenteditable="true"></div>
                         <label for="">Description</label>
-                        <input type="text" name="description">
+                        <div name="description" contenteditable="true"></div>
                         <label for="">Script</label>
                         <div contenteditable="true" id="head_script">
                         </div>
@@ -231,8 +238,11 @@
                     <div id="body" style="display: none;">
                         <label for="">Items</label>
                         <div id="main_items"></div>
+                        <label for="">Script</label>
+                        <div contenteditable="true" id="body_script">
                     </div>
                 </div>
+                <div class="action" onclick="save()" style="position: bottom; bottom: 0;">save</div>
             </div>
         </main>
 
@@ -252,24 +262,68 @@
             }
 
             function build() {
-                
                 var b = {
                     head: {
-                        title: qe(ed, '[name=title]').value,
-                        description: qe(ed, '[name=description]').value,
-                        script: {t: qe(ed, '#head_script').innerText.replace(/\n/g, '')}
+                        title: qe(ed, '[name=title]').innerText,
+                        description: qe(ed, '[name=description]').innerText,
+                        script: {t: qe(ed, '#head_script').innerText.replace(/\n/g, '')},
+                        items: [],
+                        styles: [
+                             {
+                                "s": "*",
+                                "o": {
+                                    "background_color": "#000",
+                                    "color": "#fff",
+                                    "font_size": "22px",
+                                    "font_family": "monospace"
+                                }
+                            }, {
+                                "s": "t1",
+                                "o": {
+                                    "text_transform": "uppercase",
+                                    "font_size": "44px",
+                                    "font_weight": "bold",
+                                    "letter_spacing": "2px"
+                                }
+                            }, {
+                                "s": "t2",
+                                "o": {
+                                    "font_size": "33px",
+                                    "font_weight": "bold",
+                                    "letter_spacing": "2px"
+                                }
+                            }
+                        ]
                     },
                     body: {
                         main: [],
-            
+                        script: ''
                     }
                 }
-                t(e('export'), JSON.stringify(mo(w, [b])))
+
+                for(hi of qe(ed, '#head_items').children) {
+                    b.head.items.push(JSON.parse(ga(hi, 'o')))
+                }
+
+                for(m of qe(ed, '#main_items').children) {
+                    b.body.main.push(JSON.parse(ga(m, 'o')))
+                }
+
+                return b
+                
             }
 
             function preview() {
                 t(e('export'), JSON.stringify(w))
             }
+
+            function save() {
+                const b = build()
+                console.log(b)
+                www.update(b)
+            }
+
+
         </script>
     </body>
 </html>
