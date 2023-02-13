@@ -51,6 +51,11 @@
                 edit(w)
             }
 
+            //s.js
+            function ga(el, atr) { return el.getAttribute(atr) }
+
+            function gp(el) { return p(el.parentNode) }
+
             function coe(obj) {
                 return ce({
                     a: {o: JSON.stringify(obj)},
@@ -60,23 +65,23 @@
                             cl: 'tabs',
                             c: [
                             {
-                                    a: { onclick: 'eTab(p(p(this)), "id")' },
+                                    a: { onclick: 'eTab(gp(this), "id")' },
                                     t: 'ID'
                                 },
                                 {
-                                    a: { onclick: 'eTab(p(p(this)), "e")' },
+                                    a: { onclick: 'eTab(gp(this), "e")' },
                                     t: 'E'
                                 },
                                 {
-                                    a: { onclick: 'eTab(p(this), "s")' },
+                                    a: { onclick: 'eTab(gp(this), "s")' },
                                     t: 'S'
                                 },
                                 {
-                                    a: { onclick: 'eTab(p(this), "a")' },
+                                    a: { onclick: 'eTab(gp(this), "a")' },
                                     t: 'A'
                                 },
                                 {
-                                    a: { onclick: 'eTab(p(this), "c")' },
+                                    a: { onclick: 'eTab(gp(this), "c")' },
                                     t: 'C'
                                 },
                             ]
@@ -90,15 +95,15 @@
 
             function eTab(el, t) {
                 const tab = qe(el, '.tab')
-                console.log(ga(el, 'o'), t)
                 const o = JSON.parse(ga(el, 'o'))
                 ih(tab, '')
+
                 var content = c('div')
                 
                 switch(t) {
                     case 'id':
                         a(content, 'contenteditable', true)
-                        a(content, 'onkeydown', 'updateOE(p(this), "id", this.innerText)')
+                        a(content, 'onkeydown', 'updateOE(gp(this), "id", this.innerText)')
                         o.id ? t(content, o.id) : ''
                         break;
                 }
@@ -107,9 +112,12 @@
             }
 
             function updateOE(oe, atr, value) {
+                console.log(oe, atr, value)
                 var o = JSON.parse(ga(oe, 'o'))
-                o[atr] = value
-                a(oe, 'o', JSON.strigify(o))
+                console.log(value)
+                value && value !== '\n' ? o[atr] = value : delete o[atr]
+
+                a(oe, 'o', JSON.stringify(o))
             }
 
         </script>
@@ -249,8 +257,7 @@
                     head: {
                         title: qe(ed, '[name=title]').value,
                         description: qe(ed, '[name=description]').value,
-                        script: {t: qe(ed, '#head_script').innerText.replace(/\n/g, '')},
-                        items: 
+                        script: {t: qe(ed, '#head_script').innerText.replace(/\n/g, '')}
                     },
                     body: {
                         main: [],
