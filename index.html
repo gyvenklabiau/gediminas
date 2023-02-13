@@ -8,7 +8,7 @@
         const firebaseConfig = { projectId: "gedisfoto", appId: "1:140642487007:web:0e38e6d4b82177fee5f76a", databaseURL: "https://gedisfoto-default-rtdb.europe-west1.firebasedatabase.app" }
 
         firebase.initializeApp(firebaseConfig)
-        rtdb = firebase.database()
+        const rtdb = firebase.database()
 
         const www = rtdb.ref('w')
         www.on('value', start)
