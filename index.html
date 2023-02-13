@@ -5,26 +5,15 @@
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
         <script> 
-           const firebaseConfig = {
-            projectId: "gedisfoto",
-            appId: "1:140642487007:web:0e38e6d4b82177fee5f76a"
-        };
-            
-			const config = {
-			  projectId: "stellar-dental",
-			  appId: "1:1031627286457:web:be18909dc51899178a3868",
-			}
+        const firebaseConfig = { projectId: "gedisfoto", appId: "1:140642487007:web:0e38e6d4b82177fee5f76a" }
 
-			firebase.initializeApp(firebaseConfig)
-			rtdb = firebase.database()
+	firebase.initializeApp(firebaseConfig)
+	rtdb = firebase.database()
 
-			w = rtdb.ref('w')
-			www.on('value', start)
+	const www = rtdb.ref('w')
+	www.on('value', start)
             
-            function start(data) {
-                data.val()
-                .then(w => lw(w)
-            }
+	function start(data) { data.val().then(w => lw(w) }
 
         </script>
         <title></title>
