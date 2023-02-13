@@ -1,0 +1,88 @@
+{
+    "head": {
+        "title": "Fotografas Gediminas Jasėnas",
+        "description": "Fotografo Gedimino Jasėno puslapis",
+        "script": {
+            "e": "script",
+            "id": "head_script",
+            "t": "console.log(\"does this work?\") function letsGo(with){document.write('yes')} letsGo()"
+        },
+        "items": [
+          {
+            "e": "script",
+            "a": { "src": "https://unpkg.com/srcsjs@0.0.1/s.js" }
+          },
+            {
+                "e": "meta",
+                "a": {
+                    "name": "og:type",
+                    "property": "og:type",
+                    "content": "website"
+                }
+            },
+            {
+                "e": "meta",
+                "a": {
+                    "name": "og:description",
+                    "property": "og:description",
+                    "content": "Fotografo Gedimino Jasėno puslapis"
+                }
+            },
+            {
+                "e": "meta",
+                "a": {
+                    "name": "og:title",
+                    "property": "og:title",
+                    "content": "Fotografas Gediminas Jasėnas"
+                }
+            },
+            {
+                "e": "meta",
+                "a": {
+                    "name": "og:image",
+                    "property": "og:image",
+                    "content": "https://scontent.fkun1-1.fna.fbcdn.net/v/t39.30808-6/309253440_536308461828132_7654221828341823540_n.jpg"
+                }
+            }
+        ],
+        "styles": [
+            {
+                "s": "*",
+                "o": {
+                    "background_color": "#000",
+                    "color": "#fff",
+                    "font_size": "22px",
+                    "font_family": "monospace"
+                }
+            }, {
+                "s": "t1",
+                "o": {
+                    "text_transform": "uppercase",
+                    "font_size": "44px",
+                    "font_weight": "bold",
+                    "letter_spacing": "2px"
+                }
+            }, {
+                "s": "t2",
+                "o": {
+                    "font_size": "33px",
+                    "font_weight": "bold",
+                    "letter_spacing": "2px"
+                }
+            }
+        ]
+    },
+    "body": {
+        "main": [
+            {
+                "c": "t2",
+                "t": "Hello everybody"
+            }
+        ],
+        "script": {
+            "e": "script",
+            "id": "body_script",
+            "t": "console.log(\"how about this?\")"
+        }
+    }
+}
