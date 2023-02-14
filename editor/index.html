@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <script src="https://unpkg.com/srcsjs@0.0.2/s.js"></script>
+        <script src="https://unpkg.com/srcsjs@0.0.4/s.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
@@ -49,13 +49,87 @@
             function setW(data) {
                 w = data.val()
                 console.log(w)
-                edit(w)
+                load(w)
             }
 
-            //s.js
-            function ga(el, atr) { return el.getAttribute(atr) }
+        </script>
+        <title>editor</title>
+        <meta name="description" content="Editor">
+        <link rel="stylesheet" href="/s.css">
+    </head>
+    <body>
+        <main>
+            <div style="text-align: center;" id="login" style="display: none;">
+                <label>Email</label>
+                <div contenteditable="true" id="email"></div>
+                <label>Password</label>
+                <div contenteditable="true" id="password" ></div>
+                <div class="action" onclick="login()">Login</div>
+            </div>
 
-            function gp(el) { return p(el.parentNode) }
+            <div id="editor" style="display: none;">
+                <div class="df">                    
+                    <div class="link" onclick="show('head'); hide('body')">
+                        head
+                    </div>
+                    <div class="link" onclick="show('body'); hide('head')">
+                        body
+                    </div>
+                </div>
+                <div>
+                    <div id="head">
+       
+                    </div>
+                    <div id="body" style="display: none;">
+          
+                    </div>
+                </div>
+                <div class="action" onclick="save()" style="position: fixed; bottom: 0;">save</div>
+            </div>
+        </main>
+
+        <script id="loader">
+            const ed = e('editor')
+
+            function load(w) {
+                ih(e('head'), '')
+                for(index in w.head) {
+                    add(qe(ed, '#head'), coe(w.head[index], ))
+                }
+                ih(e('body'), '')
+                for(item of w.body) {
+                    add(qe(ed, '#body'), coe(item))
+                }
+
+            }
+
+            function build() {
+                var b = {
+                    head: [],
+                    body: []
+                }
+
+                for(hi of qe(ed, '#head').children) {
+                    b.head.push(JSON.parse(ga(hi, 'o')))
+                }
+
+                for(bi of qe(ed, '#body').children) {
+                    b.body.push(JSON.parse(ga(bi, 'o')))
+                }
+
+                return b
+                
+            }
+
+            function preview() {
+                t(e('export'), JSON.stringify(w))
+            }
+
+            function save() {
+                const b = build()
+                console.log(b)
+                www.update(b)
+            }
 
             function coe(obj) {
                 return ce({
@@ -88,7 +162,8 @@
                             ]
                         },
                         {
-                            cl: 'tab'
+                            cl: 'tab',
+                            t: obj.t
                         }
                     ]
                 })
@@ -109,6 +184,12 @@
                         break;
 
                     case 'e':
+                        break;
+
+                    case 'a':
+                        for(atr in o.a) {
+                            add(content, ce({cl: 'atr df', c:[{a: {contenteditable: "true"}, cl: 'akey', t: atr}, {a: {contenteditable: "true"}, cl: 'aval', t: o.a[atr]}]}))
+                        }
 
                 }
 
@@ -120,209 +201,6 @@
                 value && value !== '\n' ? o[atr] = value : delete o[atr]
                 a(oe, 'o', JSON.stringify(o))
             }
-
-        </script>
-        <title>editor</title>
-        <meta name="description" content="Editor">
-        <style>
-            * {
-                --primary-color: rgb(75, 10, 135);
-                --primary-color: rgb(43, 7, 76);
-                --primary-gradient: linear-gradient(90deg, rgb(75, 10, 135) 0%, rgb(109, 26, 100) 100%);
-                --secondary-gradient: linear-gradient(90deg, rgb(75, 10, 135) 100%, rgb(109, 26, 100) 100%);
-            }
-
-            * {
-                font-family: monospace;
-                box-sizing: content-box;
-            }
-
-            .action {
-                padding: 1em;
-                background: var(--primary-gradient);
-                cursor: pointer;
-                color: #fff;
-                text-align: center;
-                font-weight: bold;
-                letter-spacing: 2px;
-                text-transform: uppercase;
-                transition: all 500ms;
-                margin: 1em;
-            }
-
-            .action:hover {
-                background: var(--secondary-gradient);
-            }
-
-            input, [contenteditable=true] {
-                padding: 1em;
-                border-radius: 0;
-                outline: none;
-                margin: 1em;
-                border: 1px solid #000;
-            }
-
-            label {
-                display: block;
-                margin-left: 1em;
-                margin-top: 1em;
-            }
-
-            .df { display: flex;}
-
-            .link {
-                padding: 1em;
-                text-decoration: underline;
-                text-transform: uppercase;
-                cursor: pointer;
-            }
-
-            #head_items {
-                margin: 1em;
-            }
-
-            .object_element {
-                border: 2px solid #000; 
-                margin-bottom: 1em;
-            }
-
-            .tabs {
-                display: flex;
-                align-items: center;
-            }
-
-            .tabs > div {
-                padding: 0.3em;
-                cursor: pointer;
-                border: 1px solid #222;
-            }
-
-            .tab {
-                min-height: 2em;
-            }
-        </style>
-    </head>
-    <body>
-        <main>
-            <div style="text-align: center;" id="login" style="display: none;">
-                <label>Email</label>
-                <div contenteditable="true" id="email"></div>
-                <label>Password</label>
-                <div contenteditable="true" id="password" ></div>
-                <div class="action" onclick="login()">Login</div>
-            </div>
-
-            <div id="editor" style="display: none;">
-                <div class="df">                    
-                    <div class="link" onclick="show('head'); hide('body')">
-                        head
-                    </div>
-                    <div class="link" onclick="show('body'); hide('head')">
-                        body
-                    </div>
-                </div>
-                <div>
-                    <div id="head">
-                        <label>Title</label>
-                        <div name="title" contenteditable="true"></div>
-                        <label for="">Description</label>
-                        <div name="description" contenteditable="true"></div>
-                        <label for="">Script</label>
-                        <div contenteditable="true" id="head_script">
-                        </div>
-                        <label for="">Items</label>
-                        <div id="head_items">
-        
-                        </div>
-                    </div>
-                    <div id="body" style="display: none;">
-                        <label for="">Items</label>
-                        <div id="main_items"></div>
-                        <label for="">Script</label>
-                        <div contenteditable="true" id="body_script">
-                    </div>
-                </div>
-                <div class="action" onclick="save()" style="position: bottom; bottom: 0;">save</div>
-            </div>
-        </main>
-
-        <script id="loader">
-            const ed = e('editor')
-
-            function edit(w) {
-                qe(ed, '[name=title]').innerText = w.head.title
-                qe(ed, '[name=description]').innerText = w.head.description
-                t(qe(ed, '#head_script'), w.head.script.t)
-                for(index in w.head.items) {
-                    add(qe(ed, '#head_items'), coe(w.head.items[index], ))
-                }
-                for(item of w.body.main) {
-                    add(qe(ed, '#main_items'), coe(item))
-                }
-            }
-
-            function build() {
-                var b = {
-                    head: {
-                        title: qe(ed, '[name=title]').innerText,
-                        description: qe(ed, '[name=description]').innerText,
-                        script: {t: qe(ed, '#head_script').innerText.replace(/\n/g, '')},
-                        items: [],
-                        styles: [
-                             {
-                                "s": "*",
-                                "o": {
-                                    "background_color": "#000",
-                                    "color": "#fff",
-                                    "font_size": "22px",
-                                    "font_family": "monospace"
-                                }
-                            }, {
-                                "s": "t1",
-                                "o": {
-                                    "text_transform": "uppercase",
-                                    "font_size": "44px",
-                                    "font_weight": "bold",
-                                    "letter_spacing": "2px"
-                                }
-                            }, {
-                                "s": "t2",
-                                "o": {
-                                    "font_size": "33px",
-                                    "font_weight": "bold",
-                                    "letter_spacing": "2px"
-                                }
-                            }
-                        ]
-                    },
-                    body: {
-                        main: [],
-                        script: ''
-                    }
-                }
-
-                for(hi of qe(ed, '#head_items').children) {
-                    b.head.items.push(JSON.parse(ga(hi, 'o')))
-                }
-
-                for(m of qe(ed, '#main_items').children) {
-                    b.body.main.push(JSON.parse(ga(m, 'o')))
-                }
-
-                return b
-                
-            }
-
-            function preview() {
-                t(e('export'), JSON.stringify(w))
-            }
-
-            function save() {
-                const b = build()
-                console.log(b)
-                www.update(b)
-            }
-
 
         </script>
     </body>
