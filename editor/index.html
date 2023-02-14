@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <script src="https://unpkg.com/srcsjs@0.0.4/s.js"></script>
+        <script src="https://unpkg.com/srcsjs@0.0.2/s.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
@@ -52,84 +52,10 @@
                 load(w)
             }
 
-        </script>
-        <title>editor</title>
-        <meta name="description" content="Editor">
-        <link rel="stylesheet" href="/s.css">
-    </head>
-    <body>
-        <main>
-            <div style="text-align: center;" id="login" style="display: none;">
-                <label>Email</label>
-                <div contenteditable="true" id="email"></div>
-                <label>Password</label>
-                <div contenteditable="true" id="password" ></div>
-                <div class="action" onclick="login()">Login</div>
-            </div>
+            //s.js
+            function ga(el, atr) { return el.getAttribute(atr) }
 
-            <div id="editor" style="display: none;">
-                <div class="df">                    
-                    <div class="link" onclick="show('head'); hide('body')">
-                        head
-                    </div>
-                    <div class="link" onclick="show('body'); hide('head')">
-                        body
-                    </div>
-                </div>
-                <div>
-                    <div id="head">
-       
-                    </div>
-                    <div id="body" style="display: none;">
-          
-                    </div>
-                </div>
-                <div class="action" onclick="save()" style="position: fixed; bottom: 0;">save</div>
-            </div>
-        </main>
-
-        <script id="loader">
-            const ed = e('editor')
-
-            function load(w) {
-                ih(e('head'), '')
-                for(index in w.head) {
-                    add(qe(ed, '#head'), coe(w.head[index], ))
-                }
-                ih(e('body'), '')
-                for(item of w.body) {
-                    add(qe(ed, '#body'), coe(item))
-                }
-
-            }
-
-            function build() {
-                var b = {
-                    head: [],
-                    body: []
-                }
-
-                for(hi of qe(ed, '#head').children) {
-                    b.head.push(JSON.parse(ga(hi, 'o')))
-                }
-
-                for(bi of qe(ed, '#body').children) {
-                    b.body.push(JSON.parse(ga(bi, 'o')))
-                }
-
-                return b
-                
-            }
-
-            function preview() {
-                t(e('export'), JSON.stringify(w))
-            }
-
-            function save() {
-                const b = build()
-                console.log(b)
-                www.update(b)
-            }
+            function gp(el) { return p(el.parentNode) }
 
             function coe(obj) {
                 return ce({
