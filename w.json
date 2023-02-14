@@ -1,88 +1,89 @@
 {
-    "head": {
-        "title": "Fotografas Gediminas Jasėnas",
-        "description": "Fotografo Gedimino Jasėno puslapis",
+    "w": {
+      "body": {
+        "main": [
+          {
+            "cl": "t2",
+            "e": "div",
+            "t": "Hello everybody"
+          }
+        ],
         "script": {
-            "e": "script",
-            "id": "head_script",
-            "t": "console.log(\"does this work?\") function letsGo(with){document.write('yes')} letsGo()"
-        },
+          "e": "script",
+          "id": "body_script",
+          "t": "console.log(\"how about this?\")"
+        }
+      },
+      "head": {
+        "description": "Fotografo Gedimino Jasėno puslapis",
         "items": [
           {
-            "e": "script",
-            "a": { "src": "https://unpkg.com/srcsjs@0.0.1/s.js" }
+            "a": {
+              "content": "website",
+              "name": "og:type",
+              "property": "og:type"
+            },
+            "e": "meta"
           },
-            {
-                "e": "meta",
-                "a": {
-                    "name": "og:type",
-                    "property": "og:type",
-                    "content": "website"
-                }
+          {
+            "a": {
+              "content": "Fotografo Gedimino Jasėno puslapis",
+              "name": "og:description",
+              "property": "og:description"
             },
-            {
-                "e": "meta",
-                "a": {
-                    "name": "og:description",
-                    "property": "og:description",
-                    "content": "Fotografo Gedimino Jasėno puslapis"
-                }
+            "e": "meta"
+          },
+          {
+            "a": {
+              "content": "Fotografas Gediminas Jasėnas",
+              "name": "og:title",
+              "property": "og:title"
             },
-            {
-                "e": "meta",
-                "a": {
-                    "name": "og:title",
-                    "property": "og:title",
-                    "content": "Fotografas Gediminas Jasėnas"
-                }
+            "e": "meta"
+          },
+          {
+            "a": {
+              "content": "https://scontent.fkun1-1.fna.fbcdn.net/v/t39.30808-6/309253440_536308461828132_7654221828341823540_n.jpg",
+              "name": "og:image",
+              "property": "og:image"
             },
-            {
-                "e": "meta",
-                "a": {
-                    "name": "og:image",
-                    "property": "og:image",
-                    "content": "https://scontent.fkun1-1.fna.fbcdn.net/v/t39.30808-6/309253440_536308461828132_7654221828341823540_n.jpg"
-                }
-            }
-        ],
-        "styles": [
-            {
-                "s": "*",
-                "o": {
-                    "background_color": "#000",
-                    "color": "#fff",
-                    "font_size": "22px",
-                    "font_family": "monospace"
-                }
-            }, {
-                "s": "t1",
-                "o": {
-                    "text_transform": "uppercase",
-                    "font_size": "44px",
-                    "font_weight": "bold",
-                    "letter_spacing": "2px"
-                }
-            }, {
-                "s": "t2",
-                "o": {
-                    "font_size": "33px",
-                    "font_weight": "bold",
-                    "letter_spacing": "2px"
-                }
-            }
-        ]
-    },
-    "body": {
-        "main": [
-            {
-                "c": "t2",
-                "t": "Hello everybody"
-            }
+            "e": "meta"
+          }
         ],
         "script": {
-            "e": "script",
-            "id": "body_script",
-            "t": "console.log(\"how about this?\")"
-        }
+          "e": "script",
+          "id": "head_script",
+          "t": "console.log(\"loaded\")"
+        },
+        "styles": [
+          {
+            "o": {
+              "background_color": "#000",
+              "color": "#fff",
+              "font_family": "monospace",
+              "font_size": "22px"
+            },
+            "s": "*"
+          },
+          {
+            "o": {
+              "font_size": "44px",
+              "font_weight": "bold",
+              "letter_spacing": "2px",
+              "text_transform": "uppercase"
+            },
+            "s": "t1"
+          },
+          {
+            "o": {
+              "font_size": "33px",
+              "font_weight": "bold",
+              "letter_spacing": "2px"
+            },
+            "s": "t2"
+          }
+        ],
+        "title": "Fotografas Gediminas Jasėnas"
+      }
     }
-}
+  }

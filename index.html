@@ -2,14 +2,26 @@
 <html>
     <head>
         <script src="https://unpkg.com/srcsjs@0.0.1/s.js"></script>
-        <title>hello world</title>
-        <meta name="description" content="This is a description">
+        <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
+        <script> 
+        const firebaseConfig = { projectId: "gedisfoto", appId: "1:140642487007:web:0e38e6d4b82177fee5f76a", databaseURL: "https://gedisfoto-default-rtdb.europe-west1.firebasedatabase.app" }
+
+        firebase.initializeApp(firebaseConfig)
+        const rtdb = firebase.database()
+
+        const www = rtdb.ref('w')
+        www.on('value', start)
+                
+        function start(data) {
+            const w = data.val()
+            lw(w)
+        }
+        </script>
+        <title></title>
+        <meta name="description" content="">
     </head>
     <body>
         <main></main>
-
-        <script id="loader">
-            fetch('./w.json').then((r) => r.json()).then(w => lw(w))
-        </script>
     </body>
 </html>

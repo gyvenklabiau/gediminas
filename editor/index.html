@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="https://unpkg.com/srcsjs@0.0.4/s.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
+        <script>
+            const firebaseConfig = {
+            apiKey: "AIzaSyAc6auE0SXo6wAoOtHEFxY9kbxW8BIaVJs",
+            authDomain: "gedisfoto.firebaseapp.com",
+            databaseURL: "https://gedisfoto-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "gedisfoto",
+            storageBucket: "gedisfoto.appspot.com",
+            messagingSenderId: "140642487007",
+            appId: "1:140642487007:web:0e38e6d4b82177fee5f76a"
+            };
+
+            firebase.initializeApp(firebaseConfig)
+            const db = firebase.database()
+            const auth = firebase.auth()
+            const www = db.ref('w')
+            www.on('value', setW)
+            var w = {}
+
+            auth.onAuthStateChanged(user => {
+                if(user) {
+                    show('editor')
+                    hide('login')
+                }
+                else {
+                    show('login')
+                }
+            })
+
+            function login() {
+                const email = e('email').innerText
+                const password = e('password').innerText
+                auth.signInWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        hide('login')
+                        show('editor')
+                    })
+                    .catch((error) => {
+                        notify(error.message)
+                    });
+            }
+
+            function setW(data) {
+                w = data.val()
+                console.log(w)
+                load(w)
+            }
+
+            //s.js
+            function ga(el, atr) { return el.getAttribute(atr) }
+
+            function gp(el) { return p(el.parentNode) }
+
+            function coe(obj) {
+                return ce({
+                    a: {o: JSON.stringify(obj)},
+                    cl: 'object_element',
+                    c: [
+                        {
+                            cl: 'tabs',
+                            c: [
+                                {
+                                    a: { onclick: '' },
+                                    t: obj.e || 'div'
+                                },
+                                {
+                                    a: { onclick: 'eTab(gp(this), "id")' },
+                                    t: 'ID'
+                                },
+                                {
+                                    a: { onclick: 'eTab(gp(this), "s")' },
+                                    t: 'S'
+                                },
+                                {
+                                    a: { onclick: 'eTab(gp(this), "a")' },
+                                    t: 'A'
+                                },
+                                {
+                                    a: { onclick: 'eTab(gp(this), "c")' },
+                                    t: 'C'
+                                },
+                            ]
+                        },
+                        {
+                            cl: 'tab',
+                            t: obj.t
+                        }
+                    ]
+                })
+            }
+
+            function eTab(el, t) {
+                const tab = qe(el, '.tab')
+                const o = JSON.parse(ga(el, 'o'))
+                ih(tab, '')
+
+                var content = c('div')
+                
+                switch(t) {
+                    case 'id':
+                        a(content, 'contenteditable', true)
+                        a(content, 'onkeyup', 'updateOE(gp(this), "id", this.innerText)')
+                        o.id ? t(content, o.id) : ''
+                        break;
+
+                    case 'e':
+                        break;
+
+                    case 'a':
+                        for(atr in o.a) {
+                            add(content, ce({cl: 'atr df', c:[{a: {contenteditable: "true"}, cl: 'akey', t: atr}, {a: {contenteditable: "true"}, cl: 'aval', t: o.a[atr]}]}))
+                        }
+
+                }
+
+                add(tab, content)
+            }
+
+            function updateOE(oe, atr, value) {
+                var o = JSON.parse(ga(oe, 'o'))
+                value && value !== '\n' ? o[atr] = value : delete o[atr]
+                a(oe, 'o', JSON.stringify(o))
+            }
+
+        </script>
+    </body>
+</html>
